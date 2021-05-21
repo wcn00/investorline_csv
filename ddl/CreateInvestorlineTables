@@ -1,0 +1,71 @@
+drop table blarg;
+create table if not exists blarg (
+id serial primary key,
+fname varchar(20),
+lname varchar(20)
+);
+
+select * from blarg;
+
+drop table blarg; 
+
+insert into blarg (fname,lname) values ('wendell','nichols');
+
+drop table if exists assets;
+drop index if exists assets_rpt_date;
+create table if not exists assets (
+	id serial primary key,
+	rpt_date date,
+	asset_class varchar(20),
+	product_type_ind varchar(30),
+	asset_desc varchar(60),
+	symbol varchar(20),
+	quantity int,
+	average_cost numeric(9,2),
+	total_cost numeric(9,2),
+	denom char(3),
+	current_price numeric(9,2),
+	market_value_cad  numeric(9,2),
+	unrealized_gain_loss numeric(9,2),
+	unrealized_gain_loss_percent numeric(5,2),
+	portfolio_percent  numeric(5,2),
+	annualized_income  numeric(9,2),
+	annualized_yield  numeric(5,2),
+	annual_dividend  numeric(9,2),
+	dividend_freq  varchar(12),
+	ex_dividend_date  date
+	);
+create index assets_rpt_date on assets(rpt_date);
+
+drop table if exists cashbalance;
+drop index if exists cashbalance_rpt_date;
+create table if not exists cashbalance (
+	id serial primary key,
+	rpt_date date,
+     market_value numeric(9,2),
+     cash numeric(9,2),
+   	current_price numeric(9,2),
+   	portfolio_percent_CAD numeric(5,2),
+     denom char(3)
+	);
+create index cashbalance_rpt_date on cashbalance(rpt_date);
+
+
+drop table if exists portfolio;
+drop index if exists portfolio_rpt_date;
+create table if not exists portfolio (
+	rpt_date date primary key,
+ 	report_file varchar(128),
+     account varchar(20),
+     cash_total numeric(9,2),
+   	denom char(3),
+   	securities_total numeric(9,2),
+   	acct_balance numeric(9,2),
+   	market_value_cash numeric(9,2),
+   	total_cash_portfolio_percent numeric(5,2),
+   	total_portfolio_market_value numeric(9,2),
+   	total_unrealized_gain_loss numeric(9,2),
+   	total_unrealized_gain_loss_percent numeric(9,2)
+	);
+
+
